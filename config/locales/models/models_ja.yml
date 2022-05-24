@@ -1,0 +1,39 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー      
+      ymw_management: 長期
+      management: 日々
+
+    attributes:
+        user:
+          id: ID
+          name: 名前
+          email: メールアドレス
+          password: パスワード
+          password_confirmation: パスワード再入力
+          created_at: 作成日
+          updated_at: 更新日
+        ymw_management:
+          begin_day: 開始日
+          finish_day: 終了日
+          year_p: Plan
+          year_d: Do
+          year_c: Check
+          year_a: Action
+          month_p: Plan
+          month_d: Do
+          month_c: Check
+          month_a: Action
+          week_p: Plan
+          week_d: Do
+          week_c: Check
+          week_a: Action
+        management:
+          study_time: 勉強時間        
+          day_p: Plan
+          day_d: Do
+          day_c: Check
+          day_a: Action
+
+          

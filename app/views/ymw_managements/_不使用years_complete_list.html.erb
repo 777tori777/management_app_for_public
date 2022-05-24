@@ -1,0 +1,76 @@
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h1 class="modal-title"><%= "#{@name}目標 完了一覧" %></h1>
+    </div>
+    <div class="modal-body">
+      <% unless @show_ymw_managements.any? %>
+        <h1 style="color:red"><%= "完了したものはありません" %></h1>
+      <% else %>    
+        <div class="row">
+          <div class="col-md-12">
+            <%= will_paginate @show_ymw_managements %> 
+              <table class="table table-bordered table-condensed table-hover table-striped" 
+              id="table-attendances-second">            
+                <thead><!--rowspan:縦結合、colspan：横結合-->
+                  <tr>
+                    <th colspan="1">勉強時間累計</th>
+                    <th colspan="1">開始日</th>
+                    <th colspan="1">終了日</th>
+                    <th colspan="1">項目</th>
+                    <th colspan="1">　　　　　　　　　　　　　　　　内容　　　　　　　　　　　　　　　　</th>
+                    <th colspan="1">削除</th>
+                  </tr>
+                </thead>
+                    
+                <tbody>
+                  <% @show_ymw_managements.each do |item| %>
+                    <tr>
+                      <th rowspan="4">
+                        <%# ymw＿managements＿helperを呼び出し %>
+                        <%= study_hour_sum(item) %>
+                      </th>
+                      <th rowspan="4"><%= item.begin_day %></th>
+                      <th rowspan="4"><%= item.finish_day %></th>
+                      <th rowspan="1">P</th>
+                      <div class="text-left">
+                        <td colpan="1"><%= simple_format(h(item.year_p)) %></td>
+                      </div>
+                      <th rowspan="4">
+                        <% if @user == current_user %>  
+                          <%= link_to "削除", user_ymw_management_path(@user, item.id), method: :delete,
+                                  data: { confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %>
+                        <% end %>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th rowspan="1">D</th>
+                      <div class="text-left">
+                        <td colspan="1"><%= simple_format(item.year_d) %>/td>
+                      </div>
+                    </tr>
+                    <tr>
+                      <th rowspan="1">C</th>
+                      <div class="text-left">
+                        <td colspan="1" class="text-left"><%= simple_format(item.year_c) %></td>
+                      </div>
+                    </tr>
+                    <tr>
+                      <th rowspan="1">A</th>
+                      <div class="text-left">
+                        <td colspan="1"><%= simple_format(item.year_a) %></td>
+                      </div>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            <%= will_paginate @show_ymw_managements %>
+          </div>        
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

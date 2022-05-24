@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  created_at: 2022-04-27 20:18:44
+  updated_at: 2022-04-27 20:18:44
+  begin_day: 2022-04-27
+  finish_day: 2022-04-27
+  finish_flag: false
+  year_p: MyString
+  year_d: MyString
+  year_c: MyString
+  year_a: MyString
+  month_p: MyString
+  month_d: MyString
+  month_c: MyString
+  month_a: MyString
+  week_p: MyString
+  week_d: MyString
+  week_c: MyString
+  week_a: MyString
+  user: one
+
+two:
+  created_at: 2022-04-27 20:18:44
+  updated_at: 2022-04-27 20:18:44
+  begin_day: 2022-04-27
+  finish_day: 2022-04-27
+  finish_flag: false
+  year_p: MyString
+  year_d: MyString
+  year_c: MyString
+  year_a: MyString
+  month_p: MyString
+  month_d: MyString
+  month_c: MyString
+  month_a: MyString
+  week_p: MyString
+  week_d: MyString
+  week_c: MyString
+  week_a: MyString
+  user: two

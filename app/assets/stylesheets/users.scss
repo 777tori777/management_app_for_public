@@ -1,0 +1,91 @@
+/* ユーザー情報テーブル */
+
+
+
+.user-table {
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* 入力フォーム */
+
+.label-signup {
+  margin-top: 5px;
+}
+
+.btn-signup {
+  margin-top: 10px;
+}
+
+.label-user--edit {
+  margin-top: 5px;
+}
+
+.btn-user--edit {
+  margin-top: 10px;
+}
+
+/* ユーザー一覧ページ */
+
+#table-users {
+  td {
+    vertical-align: middle;
+  }  
+}
+
+/* ユーザー勤怠情報テーブル */
+
+#table-attendances {
+  th {
+    vertical-align: middle;
+    text-align: center;
+  }
+  td {
+    vertical-align: middle;
+    text-align: center;
+  }
+}
+
+// #table-attendances_second {
+//   th {
+//     vertical-align: middle;
+//     text-align: center;
+//   }
+//   td {
+//     vertical-align: middle;
+//     text-align: center;
+//   }
+// }
+
+.bold {
+  font-weight: bold;
+}
+
+.a {
+  width: 100px;
+}
+
+.b {
+  width: 400px;
+}
+
+.front_width{
+  white-space: nowrap;
+}
+
+.entry_width{
+  white-space: pre-wrap;
+}
+
+.modal-dialog-fluid {
+  max-width: inherit;
+  width: 98%;
+  margin-left: 15px;
+}
+
+// entry_width
+// .entry_width{
+//   white-space: pre-wrap;
+// }
+
+

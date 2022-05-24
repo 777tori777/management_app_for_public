@@ -1,0 +1,76 @@
+
+<% provide(:title, @user.name) %>
+<% provide(:button_text, "検索") %>
+
+
+
+<h2 class="bold"><%= "#{@name}目標 完了一覧" %></h2>
+<% unless @show_ymw_managements.any? %>
+  <h1 style="color:red"><%= "完了したものはありません" %></h1>
+<% else %>    
+  <%= will_paginate @show_ymw_managements %> 
+    <table class="table table-bordered table-condensed table-hover table-striped" id="table-attendances">
+      <thead><!--rowspan:縦結合、colspan：横結合-->
+        <tr>
+          <th colspan="1" class ="front_width">編集</th>
+          <th colspan="1" class ="front_width">累計勉強時間<br>(開始日~終了日)</th>
+          <th colspan="1" class ="front_width">開始日</th>
+          <th colspan="1" class ="front_width">終了日</th>
+          <th colspan="1" class ="front_width">項目</th>
+          <th colspan="1">　　　　　　　　　　　　　　　　内容　　　　　　　　　　　　　　　　</th>
+          <th colspan="1" class ="front_width">削除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @show_ymw_managements.each do |item| %>
+          <tr>
+            </th>
+            <th rowspan="4">
+            <%# edit_ymw_management_user_management_path(@user)の、2つ目の引数   %>
+            <%# edit_ymw_management_user_ymw_management_path(@user, item) %>
+              <% if @user == current_user %>
+                <%= link_to "編集", edit_user_ymw_management_path(@user, item), remote: true, class: "btn btn-primary" %>
+                  <div id="edit" 
+                  class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+              <% end %>
+            </th>
+            <%# ymw_study_time(item)はymw_managements_helperを呼び出し %>
+            <th rowspan="4">
+              <% if item.span == '0.年間' %>          
+                <%= ymw_study_time(item) %>
+              <% elsif item.span == '1.月間' %>
+                <%= ymw_study_time(item) %>
+              <% else %>          
+                <%= ymw_study_time(item) %>
+              <% end %>
+            </th>
+            <th rowspan="4" class ="front_width"><%= item.begin_day %></th>
+            <th rowspan="4" class ="front_width"><%= item.finish_day %></th>
+            <th rowspan="1">P</th>
+            <td colpan="1"><div class="text-left"><%= simple_format(pdca_value(item, 'p')) %></div></td>
+            <th rowspan="4">
+              <%= link_to "削除", user_ymw_management_path(@user, item.id), method: :delete,
+                      data: { confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %>
+            </th>
+          </tr>
+          <tr>
+            <th rowspan="1">D</th>
+            <td colspan="1"><div class="text-left"><%= simple_format(pdca_value(item, 'd')) %></div></td>
+          </tr>
+          <tr>
+            <th rowspan="1">C</th>
+            <td colspan="1"><div class="text-left"><%= simple_format(pdca_value(item, 'c')) %></div></td>
+          </tr>
+          <tr>
+            <th rowspan="1">A</th>
+            <td colspan="1"><div class="text-left"><%= simple_format(pdca_value(item, 'a')) %></div></td>
+          </tr>
+        <% end %>        
+      </body>
+    </table>
+  <%= will_paginate @show_ymw_managements %> 
+<% end %>
+
+
+
+

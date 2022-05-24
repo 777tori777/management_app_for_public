@@ -1,0 +1,47 @@
+<% provide(:title, 'All Users') %>
+<h1>ユーザー一覧</h1>
+
+
+<% if @user_status_number >= 1 %>
+  <H2>
+    <div class= "center border border-danger text text-danger">
+      <%= link_to "【ユーザー申請のお知らせ】", 
+      users_edit_canfirmation_application_path(@user.id), remote: true, class: "text text-danger" %>
+      <%= "#{@user_status_number}件の申請があります" %>    
+    </div>
+    <div id="edit-canfirmation-application" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+  </H2>
+<% end %>
+
+<div class="col-md-10 col-md-offset-1">
+  <%= will_paginate %>
+    <table class="table table-condensed table-hover" id="table-users">
+      <thead>
+        <tr>
+          <th><%= User.human_attribute_name :name %></th>
+          <th>状態</th>
+          <th>削除</th>
+        </tr>
+      </thead>
+
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user.name, user %></td>
+          <% if user.admin == true %>
+            <td></td>
+          <% else %>
+            <td><%= user_status(user.status) %></td>
+          <% end %>
+          <td>
+            <% if current_user.admin? && !current_user?(user) %>
+              <%= link_to "削除", user, method: :delete,
+                  data: { confirm: "削除してよろしいですか？" },
+                  class: "btn btn-danger" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <%= will_paginate %>
+</div>
+

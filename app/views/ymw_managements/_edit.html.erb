@@ -1,0 +1,107 @@
+
+
+<% provide(:button_text, '更新') %>
+​
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h1 class="modal-title"><%= "#{span(@ymw_management.span)}PDCA" %></h1>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+
+          <% if @ymw_management.span == '0.年間' %>
+            <%= form_with(url:update_ymw_complete_user_ymw_management_path(@user, @ymw_management),local: true) do |f| %>            
+              <%= f.label :begin_day, "開始日", class: "label-#{yield(:class_text)}" %>
+              <%= f.date_field :begin_day, value: @ymw_management.begin_day ,class: "form-control" %>
+              <br>
+
+              <%= f.label :finish_day, "終了日", class: "label-#{yield(:class_text)}" %>
+              <%= f.date_field :finish_day, value: @ymw_management.finish_day ,class: "form-control" %>
+              <br>
+
+              <%= f.label :year_p, "P", class: "label-#{yield(:class_text)}" %>
+              <%= f.text_area :year_p, value: pdca_value(@ymw_management, 'p') , class: "form-control" %>
+              <br>
+
+              <%= f.label :year_d, "D", class: "label-#{yield(:class_text)}" %>
+              <%= f.text_area :year_d, value: pdca_value(@ymw_management, 'd') , class: "form-control" %>
+              <br>
+
+              <%= f.label :year_c, "C", class: "label-#{yield(:class_text)}" %>
+              <%= f.text_area :year_c, value: pdca_value(@ymw_management, 'c') , class: "form-control" %>
+              <br>
+
+              <%= f.label :year_a, "A", class: "label-#{yield(:class_text)}" %>
+              <%= f.text_area :year_a, value: pdca_value(@ymw_management, 'a') , class: "form-control" %>
+              <br>
+              <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-#{yield(:class_text)}" %>
+            <% end %>
+
+          <% elsif @ymw_management.span == '1.月間' %>
+            <%= form_with(url:update_ymw_complete_user_ymw_management_path(@user, @ymw_management),local: true) do |f| %>            
+              <%= f.label :begin_day, "開始日", class: "label-#{yield(:class_text)}" %>
+              <%= f.date_field :begin_day, value: @ymw_management.begin_day ,class: "form-control" %>
+              <br>
+
+              <%= f.label :finish_day, "終了日", class: "label-#{yield(:class_text)}" %>
+              <%= f.date_field :finish_day, value: @ymw_management.finish_day ,class: "form-control" %>
+              <br>
+
+              <%= f.label :month_p, "P", class: "label-#{yield(:class_text)}" %>
+              <%= f.text_area :month_p, value: pdca_value(@ymw_management, 'p') , class: "form-control" %>
+              <br>
+
+              <%= f.label :month_d, "D", class: "label-#{yield(:class_text)}" %>
+              <%= f.text_area :month_d, value: pdca_value(@ymw_management, 'd') , class: "form-control" %>
+              <br>
+
+              <%= f.label :month_c, "C", class: "label-#{yield(:class_text)}" %>
+              <%= f.text_area :month_c, value: pdca_value(@ymw_management, 'c') , class: "form-control" %>
+              <br>
+
+              <%= f.label :month_a, "A", class: "label-#{yield(:class_text)}" %>
+              <%= f.text_area :month_a, value: pdca_value(@ymw_management, 'a') , class: "form-control" %>
+              <br>
+              <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-#{yield(:class_text)}" %>
+            <% end %>
+
+          <% else %>
+            <%= form_with(url:update_ymw_complete_user_ymw_management_path(@user, @ymw_management),local: true) do |f| %>            
+              <%= f.label :begin_day, "開始日", class: "label-#{yield(:class_text)}" %>
+              <%= f.date_field :begin_day, value: @ymw_management.begin_day ,class: "form-control" %>
+              <br>
+
+              <%= f.label :finish_day, "終了日", class: "label-#{yield(:class_text)}" %>
+              <%= f.date_field :finish_day, value: @ymw_management.finish_day ,class: "form-control" %>
+              <br>
+
+              <%= f.label :week_p, "P", class: "label-#{yield(:class_text)}" %>
+              <%= f.text_area :week_p, value: pdca_value(@ymw_management, 'p') , class: "form-control" %>
+              <br>
+
+              <%= f.label :week_d, "D", class: "label-#{yield(:class_text)}" %>
+              <%= f.text_area :week_d, value: pdca_value(@ymw_management, 'd') , class: "form-control" %>
+              <br>
+
+              <%= f.label :week_c, "C", class: "label-#{yield(:class_text)}" %>
+              <%= f.text_area :week_c, value: pdca_value(@ymw_management, 'c') , class: "form-control" %>
+              <br>
+
+              <%= f.label :week_a, "A", class: "label-#{yield(:class_text)}" %>
+              <%= f.text_area :week_a, value: pdca_value(@ymw_management, 'a') , class: "form-control" %>
+              <br>
+              <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-#{yield(:class_text)}" %>
+            <% end %>
+          <% end %>          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

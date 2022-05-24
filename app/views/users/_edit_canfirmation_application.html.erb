@@ -1,0 +1,45 @@
+<% provide(:button_text, '確認') %>
+<% provide(:send_text, '変更を送信する') %>
+
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h1 class="modal-title"><%= "ユーザー登録 申請者" %></h1>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-bordered 
+          table-condensed table-hover table-striped" id="table-attendances">   
+            <thead>
+              <tr>
+                <th>氏名</th>
+                <th>e-mail</th>
+                <th>承認</th>
+                <th>否認</th>
+              </tr>
+            </thead>  
+
+            <% @users.each do |user| %>    
+              <tbody>
+                <tr>
+                  <td><%= user.name %></td>  
+                  <td><%= user.email %></td>                                       
+                  <td><%= link_to "approval", approve_user_user_path(user.id), method: :patch,
+                          data: { confirm: "承認してよろしいですか？" }, class: "btn btn-primary" %></td>
+                  <td><%= link_to "repudiationl", deny_user_user_path(user.id), method: :patch,
+                          data: { confirm: "否認してよろしいですか？" }, class: "btn btn-warning" %></td>                   
+                </tr>
+              </tbody>                 
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

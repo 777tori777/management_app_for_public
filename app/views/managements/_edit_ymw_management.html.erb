@@ -1,0 +1,52 @@
+
+
+<% provide(:title, 'Bases') %>
+<% provide(:class_text, 'base') %>
+<% provide(:button_text, '更新') %>
+
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h1 class="modal-title">長期PDCA</h1>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <%= form_with(url:update_ymw_management_user_management_path(@user, @management), local: true) do |f| %>            
+            <%= f.label :begin_day, "開始日", class: "label-#{yield(:class_text)}" %>
+            <%= f.date_field :begin_day, value: @management.begin_day ,class: "form-control" %>
+            <br>
+
+            <%= f.label :finish_day, "終了日", class: "label-#{yield(:class_text)}" %>
+            <%= f.date_field :finish_day, value: @management.finish_day ,class: "form-control" %>
+            <br>
+
+            <%= f.label :year_p, "P", class: "label-#{yield(:class_text)}" %>
+            <%= f.text_area :year_p, value: @management.year_p , class: "form-control" %>
+            <br>
+
+            <%= f.label :year_d, "D", class: "label-#{yield(:class_text)}" %>
+            <%= f.text_area :year_d, value: @management.year_d , class: "form-control" %>
+            <br>
+
+            <%= f.label :year_c, "C", class: "label-#{yield(:class_text)}" %>
+            <%= f.text_area :year_c, value: @management.year_c , class: "form-control" %>
+            <br>
+
+            <%= f.label :year_a, "A", class: "label-#{yield(:class_text)}" %>
+            <%= f.text_area :year_c, value: @management.year_d , class: "form-control" %>
+            <br>
+
+            <% span_value = span(number) %>
+            <%= f.hidden_field :span, value: day.span_value %>
+
+            <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-#{yield(:class_text)}" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

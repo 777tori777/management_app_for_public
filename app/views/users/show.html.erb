@@ -1,0 +1,135 @@
+<% provide(:title, @user.name) %>
+<% provide(:button_text, "検索") %>
+
+
+<h1>
+  <div class="text-center">
+    <%= link_to "⇦", user_path(date: @first_day.prev_month), class: "btn btn-primary btn-left" %>
+    <%= l(@first_day, format: :middle) %>PDCA
+    <%= link_to "⇨", user_path(date: @first_day.next_month), class: "btn btn-primary btn-right" %>
+  </div>
+</h1>
+<br>
+
+<h2 class="bold">長期</h2>
+<table class="table table-bordered table-condensed table-hover table-striped" id="table-attendances">
+  <thead><!--rowspan:縦結合、colspan：横結合-->
+    <tr>
+      <th colspan="1" class ="front_width">期間</th>
+      <th colspan="1" class ="front_width">編集</th>
+      <th colspan="1" class ="front_width">累計勉強時間<br>(年/ 月/ 週)</th>
+      <th colspan="1" class ="front_width">開始日</th>
+      <th colspan="1" class ="front_width">終了日</th>
+      <th colspan="1" class ="front_width">項目</th>
+      <th colspan="1">　　　　　　　　　　　　　　　　内容　　　　　　　　　　　　　　　　</th>
+      <th colspan="1">完了</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ymw_managements.each do |day| %>
+      <tr>        
+        <th rowspan="4" class ="front_width">
+          <%= "#{span(day.span)}" %><br>
+          <br>
+            <%= link_to "完了一覧", complete_list_user_ymw_managements_path(@user, day) %>
+        </th>
+        <th rowspan="4">
+          <% if @user == current_user %>
+            <%= link_to "編集", edit_user_ymw_management_path(@user, day), remote: true, class: "btn btn-primary" %>
+              <div id="edit" 
+              class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+          <% end %>
+        </th>
+        <th rowspan="4">
+          <% if day.span == '0.年間' %>  
+            <%# <%= " (年間合計)"<br><br>  但し書きあったほうがいいかどうか        %>
+            <%= "#{@one_year_study_time}" %>
+          <% elsif day.span == '1.月間' %>
+            <%= @one_month_study_time %>
+          <% else %>      
+            <%= @one_week_study_time %>
+          <% end %>
+        </th>
+        <th rowspan="4" class ="front_width"><%= day.begin_day %></th>
+        <th rowspan="4" class ="front_width"><%= day.finish_day %></th>
+        <th rowspan="1">P</td>
+        <td colpan="1"><div class="text-left"><%= simple_format(pdca_value(day, 'p')) %></div></td>
+        <th rowspan="4">
+          <% if @user == current_user %>  
+            <%= link_to "完了", user_ymw_management_update_path(@user, day), method: :post, 
+            class: "btn btn-primary btn-attendance" %>
+          <% end %>          
+        </th>
+      </tr>
+      <tr>
+        <th rowspan="1">D</th>
+        <td colspan="1"><div class="text-left"><%= simple_format(pdca_value(day, 'd')) %></div></td>
+      </tr>
+      <tr>
+        <th rowspan="1">C</th>
+          <td colspan="1"><div class="text-left"><%= simple_format(pdca_value(day, 'c')) %></div></td>
+        </tr>
+      <tr>
+        <th rowspan="1">A</td>
+        <td colspan="1"><div class="text-left"><%= simple_format(pdca_value(day, 'a')) %></div></td>
+      </tr>
+    <% end %>
+  </body>
+</table>
+<br>
+
+
+<h2 class="bold">日々</h2>
+<table class="table table-bordered table-condensed table-hover table-striped" id="table-attendances">
+  <thead><!--rowspan:縦結合、colspan：横結合-->
+    <tr>
+      <th colspan="1" class ="front_width">編集</th>
+      <th colspan="1" class ="front_width">日付</th>
+      <th colspan="1" class ="front_width">曜日</th>
+      <th colspan="1" class ="front_width">勉強時間</th>
+      <th colspan="1" class ="front_width">項目</th>
+      <th colspan="1">　　　　　　　　　　　　　　　　内容　　　　　　　　　　　　　　　　</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @managements.each do |day| %>
+      <tr>
+        <th rowspan="4">
+        <%# edit_day_management_user_management_path(@user, day) %>
+          <% if @user == current_user %>
+            <%= link_to "編集", edit_user_management_path(@user, day), 
+            remote: true , class: "btn btn-primary" %>
+              <div id="edit" 
+              class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+          <% end %>
+        </th>
+        <th rowspan="4" class ="front_width"><%= day.worked_on %></th>
+        <th rowspan="4">
+          <% if day.worked_on.wday == 0 %>
+            <div class="sunday"><%= $days_of_the_week[day.worked_on.wday] %></div>
+          <% elsif day.worked_on.wday == 6 %>
+            <div class="saturday"><%= $days_of_the_week[day.worked_on.wday] %></div>
+          <% else %>
+            <div><%= $days_of_the_week[day.worked_on.wday] %></div>
+          <% end %>
+        </th>
+        <th rowspan="4"><%= day.study_time %></th>
+        <th rowspan="1">P</th>
+        <td colpan="1"><div class="text-left"><%= simple_format(day.day_p) %></div></td>
+      </tr>
+      <tr>
+        <th rowspan="1">D</th>
+        <td colspan="1"><div class="text-left"><%= simple_format(day.day_d) %></div></td>
+      </tr>
+      <tr>
+        <th rowspan="1">C</th>
+        <td colspan="1"><div class="text-left"><%= simple_format(day.day_c) %></div></td>
+      </tr>
+      <tr>
+        <th rowspan="1">A</th>
+        <td colspan="1"><div class="text-left"><%= simple_format(day.day_a) %></div></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

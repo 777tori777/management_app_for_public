@@ -1,0 +1,46 @@
+
+<% provide(:title, 'Bases') %>
+<% provide(:class_text, 'base') %>
+<% provide(:button_text, '更新') %>
+​
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h1 class="modal-title">1日のPDCA</h1>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <%= form_with(url:user_management_update_path(@user, @management) , 
+          local: true) do |f| %>            
+            <%= f.label :study_time, "勉強時間", 
+            class: "label-#{yield(:class_text)}" %>
+            <%= f.text_field :study_time, value: @management.study_time ,class: "form-control" %>
+            <br>
+
+            <%= f.label :day_p, "P", class: "label-#{yield(:class_text)}" %>
+            <%= f.text_area :day_p, value: @management.day_p , class: "form-control" %>
+            <br>
+
+            <%= f.label :day_d, "D", class: "label-#{yield(:class_text)}" %>
+            <%= f.text_area :day_d, value: @management.day_d , class: "form-control" %>
+            <br>
+
+            <%= f.label :day_c, "C", class: "label-#{yield(:class_text)}" %>
+            <%= f.text_area :day_c, value: @management.day_c , class: "form-control" %>
+            <br>
+
+            <%= f.label :day_a, "A", class: "label-#{yield(:class_text)}" %>
+            <%= f.text_area :day_a, value: @management.day_a , class: "form-control" %>
+            <br>
+            <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-#{yield(:class_text)}" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

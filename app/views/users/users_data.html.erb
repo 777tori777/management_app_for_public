@@ -1,0 +1,98 @@
+<% provide(:title, "統計データ") %>
+<% provide(:button_text, "検索") %>
+
+<h1>
+  <div class="text-center">
+    統計
+  </div>
+</h1>
+
+<h2 class="bold">全メンバー 平均累計勉強時間</h2>
+<table class="table table-bordered table-condensed table-hover table-striped" id="table-attendances">
+  <thead><!--rowspan:縦結合、colspan：横結合-->
+    <tr>
+
+      <th colspan="1" class ="front_width">年</th>
+      <th colspan="1" class ="front_width">月</th>
+      <th colspan="1" class ="front_width">週</th>
+    </tr>
+  </thead>
+  <tbody>
+<%# round(2)で小数第2位までにする %>
+    <th colspan="1"><%= average_data(0).round(2) %></th>
+    <th colspan="1"><%= average_data(1).round(2) %></th>
+    <th colspan="1"><%= average_data(2).round(2) %></th>
+  </body>
+</table>
+<br>
+<br>
+
+<h2 class="bold">順位</h2>
+<div class="row">  
+  <% 3.times do |i| %>
+    <div class="col-md-4">
+    <% if i == 0 %>
+      <% word = '年間' %>
+    <% elsif i == 1 %>
+      <% word = '月間' %>
+    <% else %>
+      <% word = '週間' %>
+    <% end %>
+    <h2 class="bold"><%= word %></h2>
+      <table class="table table-bordered table-condensed table-hover table-striped" id="table-attendances">
+        <thead>
+          <tr>
+            <th colspan="1" class ="front_width">順位</th>
+            <th colspan="1" class ="front_width">氏名</th>
+            <th colspan="1" class ="front_width">累計勉強時間</th>
+          </tr>
+        </thead>
+        <% if i == 0 %>
+          <tbody>
+            <% int = 1 %>
+            <% @year_user_study_hours.each do |key, value| %>
+              <tr>
+                <th rowspan="1"><%= "#{int}" %></th>
+                <th rowspan="1" class ="front_width">
+                  <%= link_to "#{find_name(value)}", user_path(value) %>
+                </th>
+                <th rowspan="1"><%= key %></th>
+              </tr>
+              <% int += 1 %>
+            <% end %>
+          </tbody>
+        <% elsif i == 1 %>
+          <tbody>
+            <% int = 1 %>
+            <% @month_user_study_hours.each do |key, value| %>
+              <tr>
+                <th rowspan="1"><%= "#{int}" %></th>
+                <th rowspan="1" class ="front_width">
+                  <%= link_to "#{find_name(value)}", user_path(value) %>
+                </th>
+                <th rowspan="1"><%= key %></th>
+              </tr>
+              <% int += 1 %>
+            <% end %>
+          </tbody>
+        <% elsif i == 2 %>
+          <tbody>
+            <% int = 1 %>
+            <% @week_user_study_hours.each do |key, value| %>
+
+              <tr>
+                <th rowspan="1"><%= "#{int}" %></th>
+                <th rowspan="1" class ="front_width">
+                  <%= link_to "#{find_name(value)}", user_path(value) %>
+                </th>
+                <th rowspan="1"><%= key %></th>
+              </tr>
+              <% int += 1 %>
+            <% end %>
+          </tbody>
+        <% end %>
+      </table>
+    </div>    
+  <% end %>
+</div>
+
