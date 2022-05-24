@@ -12,7 +12,6 @@ class UsersController < ApplicationController
     if current_user.admin? 
       @user = User.find(current_user.id)
       @users = User.paginate(page: params[:page])
-
       @user_status_number = User.where(status: "applying").count
     else
       flash[:danger] = "ユーザー一覧を見るには管理者権限が必要です"

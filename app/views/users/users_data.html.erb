@@ -75,11 +75,10 @@
               <% int += 1 %>
             <% end %>
           </tbody>
-        <% elsif i == 2 %>
+        <% else %>
           <tbody>
             <% int = 1 %>
             <% @week_user_study_hours.each do |key, value| %>
-
               <tr>
                 <th rowspan="1"><%= "#{int}" %></th>
                 <th rowspan="1" class ="front_width">
