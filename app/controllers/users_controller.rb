@@ -31,12 +31,11 @@ class UsersController < ApplicationController
       one_year_study_time << item.study_time 
     end
     @one_year_study_time = one_year_study_time.sum
+
     # 月間勉強時間
     one_month_study_time = []
     one_month = [*Date.current.beginning_of_month..Date.current.end_of_month]
     @ont_month_managements = @user.managements.where(worked_on: one_month)
-
-
     @ont_month_managements.all.each do |item|
       if item.study_time == nil
         item.study_time = 0
@@ -44,6 +43,7 @@ class UsersController < ApplicationController
       one_month_study_time << item.study_time 
     end
     @one_month_study_time = one_month_study_time.sum
+
     # 週間勉強時間
     one_week_study_time = []
     one_week = [*Date.current.beginning_of_week..Date.current.end_of_week]
@@ -131,11 +131,9 @@ class UsersController < ApplicationController
   def edit_canfirmation_application # 使用中
     @users = User.where(status: "applying")
   end
-  
 end
 
   private
-
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
